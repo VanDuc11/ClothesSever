@@ -1,0 +1,73 @@
+<div class="col-md-2" style="padding-top: 75px;">
+    <div class="sidebar">
+        <div class="logo_content">
+            <div class="logo">
+                <i class='bx bxs-heart'></i>
+                <div class="logo_name">Hello Diet</div>
+            </div>
+            <i class='bx bx-menu' id='btn'></i>
+        </div>
+
+        <div class="src">
+            <i class='bx bx-search'></i>
+            <input type="text" id="search-input" placeholder="Search..">
+        </div>
+
+        <ul class="nav">
+            <li>
+                <a href="/home">
+                    <i class='bx bx-bar-chart-square'></i>
+                    <span class="link_name">Trang chủ</span>
+                </a>
+                <span class="tooltip">Trang chủ</span>
+            </li>
+            <li>
+                <a href="/product">
+                    <i class='bx bx-line-chart'></i>
+                    <span class="link_name">Quản lý sản phẩm</span>
+                </a>
+                <span class="tooltip">Quản lý sản phẩm</span>
+            </li>
+            <li>
+                <a href="/account">
+                    <i class='bx bx-calendar-event'></i>
+                    <span class="link_name">Tài khoản</span>
+                </a>
+                <span class="tooltip">Tài khoản</span>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<div class="col-md-9" style="  margin-top: 10px; height: 700px;" >
+    <div class="row">
+
+        <div class="container mt-3">
+            <h1>Thông tin chi tiết </h1>
+           
+            <div class="row" style="margin-top: 70px;">
+                <div class="col-md-3">
+                    <img src="/images/{{productCT.image}}"
+                        style="width: 200px; height: 200px; background-color: darkgray; border-radius:20%" alt="Logo">
+
+                </div>
+
+                <div class="col-md-6">
+                    <h3>Name: {{productCT.name}}</h3>
+
+                    <a href="#" class="list-group-item" >Số lượng: {{productCT.soluong}}</a><br>
+                    <a href="#" class="list-group-item" >Tình Trạng: {{productCT.status}}</a><br>
+                    <a href="#" class="list-group-item" >Giá: {{productCT.price}} VND</a><br>
+                    <a href="#" class="list-group-item" >Loại sản phẩm: {{productCT.loai}}</a><br>
+                    <a href="#" class="list-group-item" >Thơi gian thêm: {{productCT.createdAt}}</a><br>
+                    <a href="#" class="list-group-item" >Thời gian sửa: {{productCT.updatedAt}}</a><br>
+
+                </div>
+            </div>
+            
+
+
+
+        </div>
+    </div>
+</div>

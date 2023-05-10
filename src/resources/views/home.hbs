@@ -1,0 +1,91 @@
+<div class="col-md-2" style="padding-top: 75px;">
+    <div class="sidebar">
+        <div class="logo_content">
+            <div class="logo">
+                <i class='bx bxs-heart'></i>
+                <div class="logo_name">Hello Diet</div>
+            </div>
+            <i class='bx bx-menu' id='btn'></i>
+        </div>
+
+        <div class="src">
+            <i class='bx bx-search'></i>
+            <input type="text" id="search-input" placeholder="Search.." onkeyup="searchTable()">
+        </div>
+
+        <ul class="nav">
+            <li>
+                <a href="/home">
+                    <i class='bx bx-bar-chart-square'></i>
+                    <span class="link_name">Trang chủ</span>
+                </a>
+                <span class="tooltip">Trang chủ</span>
+            </li>
+            <li>
+                <a href="/product">
+                    <i class='bx bx-line-chart'></i>
+                    <span class="link_name">Quản lý sản phẩm</span>
+                </a>
+                <span class="tooltip">Quản lý sản phẩm</span>
+            </li>
+            <li>
+                <a href="/account">
+                    <i class='bx bx-calendar-event'></i>
+                    <span class="link_name">Tài khoản</span>
+                </a>
+                <span class="tooltip">Tài khoản</span>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<div class="col-md-9" style="  margin-top: 10px;">
+    <div class="row">
+
+        {{#each product}}
+        <div class="col-md-3" style="padding: 10px;">
+            <div class="card" id="my-card">
+                <a href="/home/chi-tiet/{{this._id}}"><img src="/images/{{this.image}}" class="card-img-top"
+                        alt="Product Image"></a>
+
+                <div class="card-body">
+                    <h5 class="card-title">{{this.name}}</h5>
+                    <p class="card-text">Tình trạng:{{this.status}}</p>
+                    <p class="card-text">Giá: {{this.price}} VND</p>
+                    <a href="/home/chi-tiet/{{this._id}}" class="btn btn-primary">Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+
+    </div>
+</div>
+<script>
+    function searchTable() {
+        // Lấy giá trị của ô input tìm kiếm
+        var input = document.getElementById("search-input");
+        var filter = input.value.toUpperCase();
+
+        // Lấy danh sách các thẻ có class là "card"
+        var cardList = document.querySelectorAll(".card");
+
+        // Lặp qua từng thẻ trong danh sách
+        for (var i = 0; i < cardList.length; i++) {
+            var card = cardList[i];
+            // Lấy phần tử chứa tên sản phẩm
+            var productName = card.querySelector(".card-title");
+            // Kiểm tra xem tên sản phẩm có chứa từ khóa tìm kiếm không
+            if (productName.textContent.toUpperCase().includes(filter)) {
+                // Nếu có, hiển thị thẻ
+                card.style.display = "";
+            } else {
+                // Nếu không, ẩn thẻ
+                card.style.display = "none";
+            }
+        }
+    }
+
+
+
+</script>

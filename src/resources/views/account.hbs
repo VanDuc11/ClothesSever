@@ -1,0 +1,153 @@
+<div class="col-md-2" style="padding-top: 75px;">
+    <div class="sidebar">
+        <div class="logo_content">
+            <div class="logo">
+                <i class='bx bxs-heart'></i>
+                <div class="logo_name">Hello Diet</div>
+            </div>
+            <i class='bx bx-menu' id='btn'></i>
+        </div>
+
+        <div class="src">
+            <i class='bx bx-search'></i>
+            <input type="text" id="search-input" placeholder="Search..">
+        </div>
+
+        <ul class="nav">
+            <li>
+                <a href="/home">
+                    <i class='bx bx-bar-chart-square'></i>
+                    <span class="link_name">Trang chủ</span>
+                </a>
+                <span class="tooltip">Trang chủ</span>
+            </li>
+            <li>
+                <a href="/product">
+                    <i class='bx bx-line-chart'></i>
+                    <span class="link_name">Quản lý sản phẩm</span>
+                </a>
+                <span class="tooltip">Quản lý sản phẩm</span>
+            </li>
+            <li>
+                <a href="/account">
+                    <i class='bx bx-calendar-event'></i>
+                    <span class="link_name">Tài khoản</span>
+                </a>
+                <span class="tooltip">Tài khoản</span>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<div class="col-md-9" style=" margin-top: 10px; height: 700px;">
+    <div class="container mt-3">
+        <h1>User Profile</h1>
+        <div class="row" style="margin-top: 70px;">
+            <div class="col-md-3">
+                <img src="/img/Pngtree—user vector avatar_4830521.png"
+                    style="width: 200px; height: 200px; background-color: darkgray; border-radius:20%" alt="Logo">
+
+            </div>
+            {{#each user}}
+            <div class="col-md-6" user>
+                <h3>Name: {{this.name}}</h3>
+                <i href="#" class="btn" data-bs-toggle="modal" data-bs-target="#myModal"
+                    style="text-align: center;">Thông tin tài khoản</i><br>
+                <a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#changePasswordModal"
+                    style="text-align: center;">Đổi mật khẩu</a><br>
+                <a href="/account/listaccount" class="btn" style="text-align: center;">Danh sách User</a><br>
+                <a href="/" class="btn" style="text-align: center;">Đăng xuất</a><br>
+
+            </div>
+            <!-- The Modal -->
+            <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Modal Heading</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="accountId">ID:</label>
+                                    <input type="text" value="{{this._id}}" class="form-control" id="accountId"
+                                        readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="accountName">Name:</label>
+                                    <input type="text" value="{{this.name}}" class="form-control" id="accountName"
+                                        readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="accountEmail">Email:</label>
+                                    <input type="email" value="{{this.email}}" class="form-control" id="accountEmail"
+                                        readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="accountPassword">Password:</label>
+                                    <input type="password" value="{{this.password}}" class="form-control"
+                                        id="accountPassword" readonly>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="changePasswordModalLabel">Đổi mật khẩu</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="changePasswordForm" action="account/update" method="post">
+                                <div class="form-group" style="display: none;">
+                                    <label for="id">Mật khẩu cũ</label>
+                                    <input type="text" value="{{this._id}}" class="form-control" id="id" name="id"
+                                        required >
+                                </div>
+                                <div class="form-group">
+                                    <label for="oldPassword">Mật khẩu cũ</label>
+                                    <input type="password" class="form-control" id="oldPassword" name="oldPassword"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newPassword">Mật khẩu mới</label>
+                                    <input type="password" class="form-control" id="newPassword" name="newPassword"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="confirmPassword">Nhập lại mật khẩu mới</label>
+                                    <input type="password" class="form-control" id="confirmPassword"
+                                        name="confirmPassword" required>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy
+                                        bỏ</button>
+                                    <button type="submit" class="btn btn-primary" id="changePasswordButton">Cập
+                                        nhật</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+            

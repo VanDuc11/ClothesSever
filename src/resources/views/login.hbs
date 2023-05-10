@@ -1,0 +1,49 @@
+<div class="login-page">
+    <div class="form">
+        <form action="/signup" method="post" class="register-form">
+            <input type="text" placeholder="name" name="name" />
+            <input type="password" placeholder="password" name="password" />
+            <input type="email" placeholder="email address" name="email" />
+            <button type="submit">create</button>
+            <p class="message">Already registered? <a href="#">Sign In</a></p>
+        </form>
+        <form action="/login" method="post" class="login-form">
+            <input type="text" placeholder="username" name="username" />
+            <input type="password" placeholder="password" name="password" />
+            <button type="submit">login</button>
+            <p class="message">Not registered? <a href="#">Create an account</a></p>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Lấy thẻ HTML của các biểu mẫu đăng nhập và đăng ký
+    const registerForm = document.querySelector('.register-form');
+    const loginForm = document.querySelector('.login-form');
+
+    // Lấy thẻ HTML của các liên kết "Create an account" và "Sign In"
+    const createAccountLink = document.querySelector('.login-form .message a');
+    const signInLink = document.querySelector('.register-form .message a');
+
+    // Ẩn biểu mẫu đăng ký và hiển thị biểu mẫu đăng nhập ban đầu
+    registerForm.style.display = 'none';
+    loginForm.style.display = 'block';
+
+    // Khi người dùng nhấp vào liên kết "Create an account"
+    createAccountLink.addEventListener('click', function (event) {
+        event.preventDefault(); // Ngăn chặn trình duyệt điều hướng đến liên kết
+
+        // Ẩn biểu mẫu đăng nhập và hiển thị biểu mẫu đăng ký
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'block';
+    });
+
+    // Khi người dùng nhấp vào liên kết "Sign In"
+    signInLink.addEventListener('click', function (event) {
+        event.preventDefault(); // Ngăn chặn trình duyệt điều hướng đến liên kết
+
+        // Ẩn biểu mẫu đăng ký và hiển thị biểu mẫu đăng nhập
+        registerForm.style.display = 'none';
+        loginForm.style.display = 'block';
+    });
+</script>
