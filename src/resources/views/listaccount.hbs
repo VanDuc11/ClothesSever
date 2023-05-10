@@ -1,0 +1,223 @@
+<div class="col-md-2" style="padding-top: 75px;">
+    <div class="sidebar">
+        <div class="logo_content">
+            <div class="logo">
+                <i class='bx bxs-heart'></i>
+                <div class="logo_name">Hello Diet</div>
+            </div>
+            <i class='bx bx-menu' id='btn'></i>
+        </div>
+
+        <div class="src">
+            <i class='bx bx-search'></i>
+            <input type="text" id="search-input" placeholder="Search.." onchange="searchTable()">
+        </div>
+
+        <ul class="nav">
+            <li>
+                <a href="/home">
+                    <i class='bx bx-bar-chart-square'></i>
+                    <span class="link_name">Trang chủ</span>
+                </a>
+                <span class="tooltip">Trang chủ</span>
+            </li>
+            <li>
+                <a href="/product">
+                    <i class='bx bx-line-chart'></i>
+                    <span class="link_name">Quản lý sản phẩm</span>
+                </a>
+                <span class="tooltip">Quản lý sản phẩm</span>
+            </li>
+            <li>
+                <a href="/account">
+                    <i class='bx bx-calendar-event'></i>
+                    <span class="link_name">Tài khoản</span>
+                </a>
+                <span class="tooltip">Tài khoản</span>
+            </li>
+
+        </ul>
+    </div>
+</div>
+<div class="col-md-9" style="  margin-top: 10;  height: 700px;">
+    <div class="container md-3">
+        <button type="button" id="add-new-btn" class="btn btn-success"
+            style="margin-top: 20px;margin-bottom: 10px;">Thêm
+        </button>
+        <div class="col-md-12">
+            <form action="/account/listaccount/create_data" id="product-form" method="post" style="display: none;">
+                <div class="row">
+                  
+                    <div class="col-md-5" style="display: none;">
+                        <label for="name" class="form-label">ID:</label>
+                        <input type="text" id="id" name="id" class="form-control" required readonly>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="name" class="form-label">User name:</label>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label for="email" class="form-label">Email:</label>
+                        <input type="email" id="email" name="email" class="form-control" required>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label for="oldPassword">Mật khẩu</label>
+                        <input type="password" class="form-control" id="oldPassword" name="Password" required>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label for="newPassword">Nhập mật khẩu</label>
+                        <input type="password" class="form-control" id="newPassword" name="resPassword" required>
+                    </div>
+
+
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="margin-top: 20px; margin-bottom: 10px;">Thêm sản
+                    phẩm</button>
+
+            </form>
+        </div>
+
+        <table id="my-table" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tên </th>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>Chức năng</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                {{#each user}}
+                <tr id="tr">
+                    <td>{{this._id}}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.email}}</td>
+                    <td>{{this.password}}</td>
+
+                    <td>
+                        <button class="deleteButton">
+                            <img src="/img/delete_vector_icon_4017378.png" alt="" style="width: 20px; height: 20px;">
+
+                        </button>
+                        <button class="btnupdate">
+                            <img src="/img/edit.png" alt="" style="width: 20px; height: 20px;">
+
+                        </button>
+
+                    </td>
+                </tr>
+                {{/each}}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+
+    // ẩn hiện form
+    const addNewBtn = document.getElementById("add-new-btn");
+    let showForm = false;
+
+    addNewBtn.addEventListener("click", () => {
+        showForm = !showForm; // Đảo ngược giá trị của biến showForm
+        const form = document.getElementById("product-form");
+        form.style.display = showForm ? "block" : "none"; // Hiện hoặc ẩn form tùy thuộc vào giá trị của biến showForm
+    });
+
+    const btnUpdate = document.querySelectorAll(".btnupdate");
+    const form = document.getElementById("product-form");
+    btnUpdate.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            form.style.display = "block";
+
+            const row = btn.closest("tr");
+            const id = row.cells[0].textContent;
+            const name = row.cells[1].textContent;
+            const email = row.cells[2].textContent;
+            const password = row.cells[3].textContent;
+            
+
+            document.getElementById("id").value = id;
+            document.getElementById("name").value = name;
+            document.getElementById("email").value = email;
+            document.getElementById("oldPassword").value = password;
+            document.getElementById("newPassword").value = password;
+           
+
+        });
+    });
+
+    // delete
+    const deleteButton = document.querySelectorAll(".deleteButton");
+
+    deleteButton.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            const confirmed = window.confirm("Bạn có chắc muốn xóa sản phẩm này không?");
+            if (confirmed) {
+                const id = btn.parentNode.parentNode.querySelector('td:first-child').textContent;
+                // Thực hiện yêu cầu HTTP để xóa sản phẩm
+                fetch(`/account/listaccount/${id}/delete`, { method: "POST" })
+                    .then((response) => {
+                        location.reload(); // Reload lại trang
+
+                        if (response.ok) {
+                            alert("Đã xóa sản phẩm thành công");
+                            // Thực hiện các hành động khác sau khi xóa sản phẩm thành công
+                        } else {
+                            alert("Lỗi khi xóa sản phẩm");
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+        });
+
+    });
+
+
+    // tìm kiếm
+    function searchTable() {
+        // Lấy giá trị của ô input tìm kiếm
+        var input = document.getElementById("search-input");
+        var filter = input.value.toUpperCase();
+
+        // Lấy bảng dữ liệu
+        var table = document.getElementById("my-table");
+
+        // Lấy tất cả các dòng trong bảng
+        var rows = table.querySelectorAll("#tr");
+
+        // Lặp qua tất cả các dòng và ẩn các dòng không phù hợp
+        for (var i = 0; i < rows.length; i++) {
+            var cells = rows[i].getElementsByTagName("td");
+            var match = false;
+            for (var j = 0; j < cells.length; j++) {
+                var cellText = cells[j].textContent.toUpperCase();
+                if (cellText.indexOf(filter) > -1) {
+                    match = true;
+                    break;
+                }
+            }
+            if (match) {
+                rows[i].style.display = "";
+            } else {
+                rows[i].style.display = "none";
+            }
+        }
+    }
+
+    // Gán sự kiện khi nhập vào ô input
+    document.getElementById("search-input").addEventListener("keyup", searchTable);
+
+
+</script>
